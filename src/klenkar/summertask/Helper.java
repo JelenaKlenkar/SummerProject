@@ -42,15 +42,16 @@ public class Helper {
 
 	public static Date enterDate(String message) {
 		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-		
-		while(true) {
+
+		while (true) {
 			try {
 				return df.parse(JOptionPane.showInputDialog(message));
-			}catch(Exception e) {
-				JOptionPane.showConfirmDialog(null, "Input must be in format: " + DATE_FORMAT + "\nExample of todays date:"
-						+ df.format(new Date()));
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(null, "Input must be in format: " + DATE_FORMAT
+						+ "\nExample of todays date:" + df.format(new Date()));
 			}
 		}
 
 	}
+
 }
