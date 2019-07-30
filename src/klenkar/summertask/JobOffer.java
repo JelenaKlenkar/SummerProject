@@ -9,7 +9,6 @@ public class JobOffer {
 	private double salary;
 	private Date startingDate;
 	private boolean accept;
-	private int jobApplication;
 
 	// default constructor
 	public JobOffer() {
@@ -17,12 +16,12 @@ public class JobOffer {
 	}
 
 	// parameterized constructor
-	public JobOffer(int id, double salary, Date startingDate, boolean accept, int jobApplication) {
+	public JobOffer(int id, double salary, Date startingDate, boolean accept) {
 		this.id = id;
 		this.salary = salary;
 		this.startingDate = startingDate;
 		this.accept = accept;
-		this.jobApplication = jobApplication;
+
 	}
 
 	// public methods
@@ -56,14 +55,6 @@ public class JobOffer {
 
 	public void setAccept(boolean accept) {
 		this.accept = accept;
-	}
-
-	public int getJobApplication() {
-		return jobApplication;
-	}
-
-	public void setJobApplication(int jobApplication) {
-		this.jobApplication = jobApplication;
 	}
 
 }

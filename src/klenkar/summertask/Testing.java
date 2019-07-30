@@ -12,7 +12,6 @@ public class Testing {
 	private int numberOfTesting;
 	private Date testingTime;
 	private int resultOfTesting;
-	private int jobApplication;
 
 	// default constructor
 	public Testing() {
@@ -21,14 +20,14 @@ public class Testing {
 
 	// parameterized constructor
 	public Testing(int id, String typeOfTesting, Date dateOfTesting, int numberOfTesting, Date testingTime,
-			int resultOfTesting, int jobApplication) {
+			int resultOfTesting) {
 		this.id = id;
 		this.typeOfTesting = typeOfTesting;
 		this.dateOfTesting = dateOfTesting;
 		this.numberOfTesting = numberOfTesting;
 		this.testingTime = testingTime;
 		this.resultOfTesting = resultOfTesting;
-		this.jobApplication = jobApplication;
+
 	}
 
 	// public methods
@@ -79,14 +78,6 @@ public class Testing {
 
 	public void setResultOfTesting(int resultOfTesting) {
 		this.resultOfTesting = resultOfTesting;
-	}
-
-	public int getJobApplication() {
-		return jobApplication;
-	}
-
-	public void setJobApplication(int jobApplication) {
-		this.jobApplication = jobApplication;
 	}
 
 }

@@ -10,7 +10,6 @@ public class Interview {
 	private String typeofInterview;
 	private Date dateOfInterview;
 	private int numberOfInterview;
-	private int jobApplication;
 
 	// default constructor
 	public Interview() {
@@ -19,12 +18,12 @@ public class Interview {
 
 	// parameterized constructor
 
-	public Interview(int id, String typeofInterview, Date dateOfInterview, int numberOfInterview, int jobApplication) {
+	public Interview(int id, String typeofInterview, Date dateOfInterview, int numberOfInterview) {
 		this.id = id;
 		this.typeofInterview = typeofInterview;
 		this.dateOfInterview = dateOfInterview;
 		this.numberOfInterview = numberOfInterview;
-		this.jobApplication = jobApplication;
+
 	}
 
 	// public methods
@@ -58,14 +57,6 @@ public class Interview {
 
 	public void setNumberOfInterview(int numberOfInterview) {
 		this.numberOfInterview = numberOfInterview;
-	}
-
-	public int getJobApplication() {
-		return jobApplication;
-	}
-
-	public void setJobApplication(int jobApplication) {
-		this.jobApplication = jobApplication;
 	}
 
 }

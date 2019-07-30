@@ -10,8 +10,6 @@ public class JobApplication {
 	private Date dateOfReceive;
 	private Date timeOfReceive;
 	private int numberOfApplication;
-	private int jobPosition;
-	private int applicant;
 
 	// default constructor
 
@@ -20,14 +18,12 @@ public class JobApplication {
 	}
 
 	// parameterized constructor
-	public JobApplication(int id, Date dateOfReceive, Date timeOfReceive, int numberOfApplication, int jobPosition,
-			int applicant) {
+	public JobApplication(int id, Date dateOfReceive, Date timeOfReceive, int numberOfApplication) {
 		this.id = id;
 		this.dateOfReceive = dateOfReceive;
 		this.timeOfReceive = timeOfReceive;
 		this.numberOfApplication = numberOfApplication;
-		this.jobPosition = jobPosition;
-		this.applicant = applicant;
+
 	}
 
 	// public methods
@@ -62,22 +58,6 @@ public class JobApplication {
 
 	public void setNumberOfApplication(int numberOfApplication) {
 		this.numberOfApplication = numberOfApplication;
-	}
-
-	public int getJobPosition() {
-		return jobPosition;
-	}
-
-	public void setJobPosition(int jobPosition) {
-		this.jobPosition = jobPosition;
-	}
-
-	public int getApplicant() {
-		return applicant;
-	}
-
-	public void setApplicant(int applicant) {
-		this.applicant = applicant;
 	}
 
 }
