@@ -40,6 +40,18 @@ public class Helper {
 
 	}
 
+	public static double enterDouble(String message) {
+		double j;
+		while (true) {
+			try {
+				j = Double.parseDouble(JOptionPane.showInputDialog("message"));
+             
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
 	public static Date enterDate(String message) {
 		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
 
@@ -52,6 +64,20 @@ public class Helper {
 			}
 		}
 
+	}
+
+	public static boolean enterBooleanValue(String message) {
+
+		boolean b;
+		while (true) {
+			try {
+				b = Boolean.parseBoolean(JOptionPane.showInputDialog(message));
+
+			} catch (Exception e) {
+
+			}
+
+		}
 	}
 
 }
