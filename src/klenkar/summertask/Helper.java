@@ -1,5 +1,6 @@
 package klenkar.summertask;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +8,7 @@ import javax.swing.JOptionPane;
 
 public class Helper {
 	public static final String DATE_FORMAT = "dd.MM.yyyy.";
+	public static final String TIME_FORMAT = "HH:mm:ss";
 
 	public static String enterString(String message) {
 
@@ -41,12 +43,14 @@ public class Helper {
 	}
 
 	public static double enterDouble(String message) {
-		double j;
+
+		DecimalFormat dn = new DecimalFormat("#.##");
 		while (true) {
 			try {
-				j = Double.parseDouble(JOptionPane.showInputDialog("message"));
-             
+				return (double) dn.parse(JOptionPane.showInputDialog("message"));
+
 			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(null, "Input must be in format: " + "\nExample: 5000.20");
 
 			}
 		}
@@ -66,18 +70,34 @@ public class Helper {
 
 	}
 
-	public static boolean enterBooleanValue(String message) {
-
-		boolean b;
+	public static Date enterTime(String message) {
+		SimpleDateFormat tf = new SimpleDateFormat(TIME_FORMAT);
 		while (true) {
 			try {
-				b = Boolean.parseBoolean(JOptionPane.showInputDialog(message));
-
+				return tf.parse(JOptionPane.showInputDialog(message));
 			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(null,
+						"Input must be in format: " + TIME_FORMAT + "\nExample of time: 20:12:45");
+			}
+		}
+	}
 
+	public static boolean enterBoolean(String message) {
+		int reply = JOptionPane.showConfirmDialog(null, message, "Select Yes or No", JOptionPane.YES_NO_OPTION);
+		boolean applicantGotTheJob = false;
+		if (reply == JOptionPane.YES_OPTION) {
+			applicantGotTheJob = true;
+
+		} else {
+			if (reply == JOptionPane.NO_OPTION) {
+				applicantGotTheJob = false;
 			}
 
+			System.exit(0);
 		}
+
+		return applicantGotTheJob;
+
 	}
 
 }

@@ -23,6 +23,8 @@ public class Start {
 
 	private JobApplication setValues(JobApplication j) {
 		j.setDateOfReceive(Helper.enterDate("Enter date of recceive: "));
+		j.setTimeOfReceive(Helper.enterTime("Enter time of receive: "));
+		j.setNumberOfApplication(Helper.enterInteger("Enter number of application: "));
 
 		return j;
 	}
@@ -44,8 +46,16 @@ public class Start {
 	}
 
 	private JobOffer setValues(JobOffer jo) {
-
+		jo.setSalary(Helper.enterDouble("Enter salary: "));
+		jo.setStartingDate(Helper.enterDate("Enter starting date: "));
+		jo.setAccept(Helper.enterBoolean("Enter job accept: "));
 		return jo;
+	}
+
+	private JobPosition setValues(JobPosition jp) {
+		jp.setNameOfJobPosition(Helper.enterString("Enter job position: "));
+		jp.setJobDescription(Helper.enterString("Enter job description: "));
+		return jp;
 	}
 
 	public static void main(String[] args) {
