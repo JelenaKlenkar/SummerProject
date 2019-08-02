@@ -1,8 +1,6 @@
 package klenkar.summertask;
 
 public class Applicant {
-	
-	
 
 	// define a private fields
 
@@ -15,14 +13,13 @@ public class Applicant {
 	private int personalIdentificationNumber;
 	private String applicantCv;
 	private String motivationalLetter;
-	
-	
-	//default constructor
+
+	// default constructor
 	public Applicant() {
-		
+
 	}
 
-	//parameterized constructor
+	// parameterized constructor
 	public Applicant(int id, String firstName, String lastName, String address, int phoneNumber, String email,
 			int personalIdentificationNumber, String applicantCv, String motivationalLetter) {
 		this.id = id;
@@ -36,7 +33,7 @@ public class Applicant {
 		this.motivationalLetter = motivationalLetter;
 	}
 
-	//public methods
+	// public methods
 
 	public int getId() {
 		return id;
@@ -110,4 +107,8 @@ public class Applicant {
 		this.motivationalLetter = motivationalLetter;
 	}
 
+	@Override
+	public String toString() {
+		return getFirstName() + " " + getLastName();
+	}
 }

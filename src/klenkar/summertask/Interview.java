@@ -59,4 +59,8 @@ public class Interview {
 		this.numberOfInterview = numberOfInterview;
 	}
 
+	@Override
+	public String toString() {
+		return getTypeofInterview() + " " + getDateOfInterview();
+	}
 }

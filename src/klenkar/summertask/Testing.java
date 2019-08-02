@@ -69,4 +69,8 @@ public class Testing {
 		this.resultOfTesting = resultOfTesting;
 	}
 
+	@Override
+	public String toString() {
+		return getTypeOfTesting();
+	}
 }
