@@ -2,7 +2,6 @@ package klenkar.summertask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
