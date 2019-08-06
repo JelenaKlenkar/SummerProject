@@ -2,6 +2,8 @@ package klenkar.summertask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import klenkar.summertask.ConnectToDatabase;
@@ -96,15 +98,17 @@ public class Start {
 	}
 
 	private void listApplicants() {	
-		ReadFromDatabase listAll = new ReadFromDatabase();
-		listAll.readApplicantsFromDatabase();
-		System.out.println(listAll);
-		/*System.out.println("\nList all applicants");
-		int i = 0;
-		for (Applicant applicant : applicants) {
-			System.out.println(++i + "." + applicant);
+		connection = ConnectToDatabase.getConnection();
+		try {
+			PreparedStatement expression = connection.prepareStatement("select * from applicant");
+			ResultSet rs = expression.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getInt("id") + " " + rs.getString("firstName") + " " + rs.getString("lastName"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
-		System.out.println();*/
 	}
 
 	private void menu() {
