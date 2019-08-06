@@ -1,12 +1,16 @@
 package klenkar.summertask;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import klenkar.summertask.ConnectToDatabase;
 
 import javax.swing.JOptionPane;
 
 public class Start {
 	private List<Applicant> applicants;
+	private Connection connection;
 
 	public Start() {
 		applicants = new ArrayList<>();
@@ -62,20 +66,45 @@ public class Start {
 	}
 
 	private Applicant enterApplicant() {
-
+		connection = ConnectToDatabase.getConnection();
 		Applicant a = new Applicant();
 		a = setValues(a);
+		String sql = "INSERT INTO applicant"
+				+ "(id,firstName,lastName,address,phoneNumber,email,personalIdentificationNumber,applicantCV,motivationalLetter)" 
+				+ "VALUES(?,?,?,?,?,?,?,?,?)";
+		try {
+
+			PreparedStatement expression = connection.prepareStatement(sql);
+
+			expression.setNull(1, java.sql.Types.INTEGER);
+			expression.setString(2,a.getFirstName());
+			expression.setString(3, a.getLastName());
+			expression.setString(4, a.getAddress());
+			expression.setInt(5, a.getPhoneNumber());
+			expression.setString(6, a.getEmail());
+			expression.setInt(7, a.getPersonalIdentificationNumber());
+			expression.setString(8, a.getApplicantCv());
+			expression.setString(9, a.getMotivationalLetter());
+			expression.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return a;
 
 	}
 
-	private void listApplicants() {
-		System.out.println("\nList all applicants");
+	private void listApplicants() {	
+		ReadFromDatabase listAll = new ReadFromDatabase();
+		listAll.readApplicantsFromDatabase();
+		System.out.println(listAll);
+		/*System.out.println("\nList all applicants");
 		int i = 0;
 		for (Applicant applicant : applicants) {
 			System.out.println(++i + "." + applicant);
 		}
-		System.out.println();
+		System.out.println();*/
 	}
 
 	private void menu() {
