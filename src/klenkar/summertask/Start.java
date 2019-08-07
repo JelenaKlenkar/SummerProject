@@ -54,10 +54,28 @@ public class Start {
 
 	}
 
-	private void editApplicant() {
+	public void editApplicant() {
+		connection = ConnectToDatabase.getConnection();
 		listApplicants();
-		Applicant a = applicants.get(ordinalNumberOfApplicant());
+		int id = ordinalNumberOfApplicant();
+		Applicant a = new Applicant();
 		a = editValues(a);
+		try {
+
+			PreparedStatement expressionUpdate = connection.prepareStatement("update applicant set firstName=?, lastName=?,address = ?,phoneNumber = ? ,email = ?,personalIdentificationNumber = ?,applicantCV = ? ,motivationalLetter = ?  where id ='" + id + "';");
+
+			expressionUpdate.setString(1, a.getFirstName());
+			expressionUpdate.setString(2, a.getLastName());
+			expressionUpdate.setString(3, a.getAddress());
+			expressionUpdate.setInt(4, a.getPhoneNumber());
+			expressionUpdate.setString(5, a.getEmail());
+			expressionUpdate.setInt(6, a.getPersonalIdentificationNumber());
+			expressionUpdate.setString(7, a.getApplicantCv());
+			expressionUpdate.setString(8, a.getMotivationalLetter());
+			expressionUpdate.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 
@@ -146,28 +164,19 @@ public class Start {
 	}
 
 	private Applicant editValues(Applicant a) {
-		connection = ConnectToDatabase.getConnection();
+		
+		/*connection = ConnectToDatabase.getConnection();
 		try {
-			PreparedStatement expression = connection.prepareStatement("select firstName from applicant");
+			PreparedStatement expression = connection.prepareStatement("select firstName from applicant where id = '"  +";'");
 			ResultSet rs = expression.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString("firstName"));
 			}
 		} catch (SQLException e) {
-		}
+		}*/
 
 		a.setFirstName(Helper.enterString("Enter first name: "));
 
-		String sql = "update applicant set firstName=? where id = ?";
-		try {
-
-			PreparedStatement expressionUpdate = connection.prepareStatement(sql);
-
-			expressionUpdate.setString(1, a.getFirstName());
-			expressionUpdate.setInt(2, ordinalNumberOfApplicant());
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
 		System.out.println("Last name: " + a.getLastName());
 		a.setLastName(Helper.enterString("Enter last name: "));
 		System.out.println("Address: " + a.getLastName());
