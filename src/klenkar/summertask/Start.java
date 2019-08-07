@@ -11,7 +11,7 @@ import klenkar.summertask.ConnectToDatabase;
 import javax.swing.JOptionPane;
 
 public class Start {
-	private List<Applicant> applicants;
+	private List<Applicant> applicants = new ArrayList<Applicant>();
 	private Connection connection;
 
 	public Start() {
@@ -42,20 +42,44 @@ public class Start {
 	}
 
 	private void deleteApplicant() {
+		connection = ConnectToDatabase.getConnection();
 		listApplicants();
-		Applicant a = applicants.get(ordinalNumberOfApplicant() - 1);
-		applicants.remove(a);
+		try {
+			PreparedStatement expression = connection.prepareStatement("delete from applicant where id=?");
+			expression.setInt(1, ordinalNumberOfApplicant());
+			expression.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	private void editApplicant() {
 		listApplicants();
-		Applicant a = applicants.get(ordinalNumberOfApplicant() - 1);
+		Applicant a = applicants.get(ordinalNumberOfApplicant());
 		a = editValues(a);
 
 	}
 
 	private int ordinalNumberOfApplicant() {
+
+		connection = ConnectToDatabase.getConnection();
+		try {
+			PreparedStatement expression = connection.prepareStatement("select * from applicant");
+			ResultSet rs = expression.executeQuery();
+			while (rs.next()) {
+				Applicant applicant = new Applicant();
+
+				applicant.setId(rs.getInt("id"));
+
+				applicants.add(applicant);
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
 		int on;
 		while (true) {
 			on = Helper.enterInteger("Enter ordinal number");
@@ -72,14 +96,14 @@ public class Start {
 		Applicant a = new Applicant();
 		a = setValues(a);
 		String sql = "INSERT INTO applicant"
-				+ "(id,firstName,lastName,address,phoneNumber,email,personalIdentificationNumber,applicantCV,motivationalLetter)" 
+				+ "(id,firstName,lastName,address,phoneNumber,email,personalIdentificationNumber,applicantCV,motivationalLetter)"
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
 
 			PreparedStatement expression = connection.prepareStatement(sql);
 
 			expression.setNull(1, java.sql.Types.INTEGER);
-			expression.setString(2,a.getFirstName());
+			expression.setString(2, a.getFirstName());
 			expression.setString(3, a.getLastName());
 			expression.setString(4, a.getAddress());
 			expression.setInt(5, a.getPhoneNumber());
@@ -92,12 +116,12 @@ public class Start {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return a;
 
 	}
 
-	private void listApplicants() {	
+	private void listApplicants() {
 		connection = ConnectToDatabase.getConnection();
 		try {
 			PreparedStatement expression = connection.prepareStatement("select * from applicant");
@@ -122,8 +146,28 @@ public class Start {
 	}
 
 	private Applicant editValues(Applicant a) {
-		System.out.println("First name: " + a.getFirstName());
+		connection = ConnectToDatabase.getConnection();
+		try {
+			PreparedStatement expression = connection.prepareStatement("select firstName from applicant");
+			ResultSet rs = expression.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getString("firstName"));
+			}
+		} catch (SQLException e) {
+		}
+
 		a.setFirstName(Helper.enterString("Enter first name: "));
+
+		String sql = "update applicant set firstName=? where id = ?";
+		try {
+
+			PreparedStatement expressionUpdate = connection.prepareStatement(sql);
+
+			expressionUpdate.setString(1, a.getFirstName());
+			expressionUpdate.setInt(2, ordinalNumberOfApplicant());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		System.out.println("Last name: " + a.getLastName());
 		a.setLastName(Helper.enterString("Enter last name: "));
 		System.out.println("Address: " + a.getLastName());
