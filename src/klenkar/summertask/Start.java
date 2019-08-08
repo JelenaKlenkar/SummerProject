@@ -1,5 +1,9 @@
 package klenkar.summertask;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,9 +36,45 @@ public class Start {
 				deleteApplicant();
 				break;
 			case 5:
+				openEra();
+				break;
+			case 6:
+				openGitHubCode();
+				break;
+			case 7:
 				break main_loop;
 			default:
 				break;
+
+			}
+		}
+
+	}
+
+	private void openGitHubCode() {
+		String url = "https://github.com/JelenaKlenkar/SummerProject/tree/master/src/klenkar/summertask";
+
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
+
+			}
+		}
+
+	}
+
+	private void openEra() {
+		String url = "https://github.com/JelenaKlenkar/SummerProject/blob/master/era/human_resources.png";
+
+		if (Desktop.isDesktopSupported()) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
 
 			}
 		}
@@ -159,9 +199,11 @@ public class Start {
 		System.out.println("====MENU SELECTION===");
 		System.out.println("1.List all the applicants");
 		System.out.println("2.Enter new applicant");
-		System.out.println("3. Edit applicant");
+		System.out.println("3.Edit applicant");
 		System.out.println("4.Delete applicant");
-		System.out.println("5.Exit the program");
+		System.out.println("5.Open ERA diagram: ");
+		System.out.println("6.Open GITHUB code: ");
+		System.out.println("7.Exit the program");
 
 	}
 
