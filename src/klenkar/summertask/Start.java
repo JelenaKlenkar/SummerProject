@@ -54,15 +54,34 @@ public class Start {
 
 	}
 
-	public void editApplicant() {
+	private void editApplicant() {
 		connection = ConnectToDatabase.getConnection();
 		listApplicants();
 		int id = ordinalNumberOfApplicant();
 		Applicant a = new Applicant();
-		a = editValues(a);
+		try {
+			PreparedStatement expression = connection
+					.prepareStatement("select * from applicant where id = '" + id + ";'");
+			ResultSet rs = expression.executeQuery();
+			while (rs.next()) {
+				System.out.println("First Name: " + rs.getString("firstName"));
+				System.out.println("Last Name: " + rs.getString("lastName"));
+				System.out.println("Address: " + rs.getString("address"));
+				System.out.println("Phone Number: " + rs.getString("phoneNumber"));
+				System.out.println("Email: " + rs.getString("email"));
+				System.out.println("Personal Identification Number: " + rs.getString("personalIdentificationNumber"));
+				System.out.println("Applicant CV: " + rs.getString("applicantCV"));
+				System.out.println("Motivational Letter: " + rs.getString("motivationalLetter"));
+
+			}
+		} catch (SQLException e) {
+		}
+		a = setValues(a);
 		try {
 
-			PreparedStatement expressionUpdate = connection.prepareStatement("update applicant set firstName=?, lastName=?,address = ?,phoneNumber = ? ,email = ?,personalIdentificationNumber = ?,applicantCV = ? ,motivationalLetter = ?  where id ='" + id + "';");
+			PreparedStatement expressionUpdate = connection.prepareStatement(
+					"update applicant set firstName=?, lastName=?,address = ?,phoneNumber = ? ,email = ?,personalIdentificationNumber = ?,applicantCV = ? ,motivationalLetter = ?  where id ='"
+							+ id + "';");
 
 			expressionUpdate.setString(1, a.getFirstName());
 			expressionUpdate.setString(2, a.getLastName());
@@ -81,27 +100,10 @@ public class Start {
 
 	private int ordinalNumberOfApplicant() {
 
-		connection = ConnectToDatabase.getConnection();
-		try {
-			PreparedStatement expression = connection.prepareStatement("select * from applicant");
-			ResultSet rs = expression.executeQuery();
-			while (rs.next()) {
-				Applicant applicant = new Applicant();
-
-				applicant.setId(rs.getInt("id"));
-
-				applicants.add(applicant);
-
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
 		int on;
 		while (true) {
 			on = Helper.enterInteger("Enter ordinal number");
-			if (on > applicants.size()) {
+			if (on < 0) {
 				JOptionPane.showConfirmDialog(null, "Entering ordinal number required");
 				continue;
 			}
@@ -161,38 +163,6 @@ public class Start {
 		System.out.println("4.Delete applicant");
 		System.out.println("5.Exit the program");
 
-	}
-
-	private Applicant editValues(Applicant a) {
-		
-		/*connection = ConnectToDatabase.getConnection();
-		try {
-			PreparedStatement expression = connection.prepareStatement("select firstName from applicant where id = '"  +";'");
-			ResultSet rs = expression.executeQuery();
-			while (rs.next()) {
-				System.out.println(rs.getString("firstName"));
-			}
-		} catch (SQLException e) {
-		}*/
-
-		a.setFirstName(Helper.enterString("Enter first name: "));
-
-		System.out.println("Last name: " + a.getLastName());
-		a.setLastName(Helper.enterString("Enter last name: "));
-		System.out.println("Address: " + a.getLastName());
-		a.setAddress(Helper.enterString("Enter address: "));
-		System.out.println("Phone number: " + a.getPhoneNumber());
-		a.setPhoneNumber(Helper.enterInteger("Enter phone number: "));
-		System.out.println("Email address: " + a.getEmail());
-		a.setEmail(Helper.enterString("Enter email address: "));
-		System.out.println("Personal identification number:" + a.getPersonalIdentificationNumber());
-		a.setPersonalIdentificationNumber(Helper.enterInteger("Enter personal identification number: "));
-		System.out.println("Applicant cv: " + a.getApplicantCv());
-		a.setApplicantCv(Helper.enterString("Enter applicant cv: "));
-		System.out.println("Motivational letter: " + a.getMotivationalLetter());
-		a.setMotivationalLetter(Helper.enterString("Enter motivational letter: "));
-
-		return a;
 	}
 
 	// set the values for private fields in POJO class
