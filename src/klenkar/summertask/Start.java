@@ -115,6 +115,7 @@ public class Start {
 
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		a = setValues(a);
 		try {
