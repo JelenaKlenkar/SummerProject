@@ -201,8 +201,8 @@ public class Start {
 		System.out.println("2.Enter new applicant");
 		System.out.println("3.Edit applicant");
 		System.out.println("4.Delete applicant");
-		System.out.println("5.Open ERA diagram: ");
-		System.out.println("6.Open GITHUB code: ");
+		System.out.println("5.Open ERA diagram");
+		System.out.println("6.Open GITHUB code");
 		System.out.println("7.Exit the program");
 
 	}
