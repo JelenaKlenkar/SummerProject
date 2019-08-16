@@ -8,7 +8,9 @@
 
 -another option is link that opens the GITHUB code of application
 
--
+-application alows CRUD (create,read,update and delete) in applicant table in database human_resources
+
+
 
 
 
